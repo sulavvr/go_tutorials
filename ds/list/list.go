@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/sulavv/ds/node"
+	"github.com/sulavvr/ds/node"
 )
 
 type List struct {
@@ -32,10 +32,10 @@ func (l *List) Display() {
 
 	for {
 		if x.Next != nil {
-			fmt.Printf("%v(%T)\n", x, x.Data)
+			fmt.Printf("%+v\n", x)
 			x = x.Next
 		} else {
-			fmt.Printf("%v(%T)\n", x, x.Data)
+			fmt.Printf("%+v\n", x)
 			break
 		}
 	}

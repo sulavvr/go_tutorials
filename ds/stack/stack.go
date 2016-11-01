@@ -1,7 +1,7 @@
 package stack
 
 import (
-	"github.com/sulavv/ds/list"
+	"github.com/sulavvr/ds/list"
 )
 
 type Stack struct {

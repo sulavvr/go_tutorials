@@ -1,7 +1,7 @@
 package queue
 
 import (
-	"github.com/sulavv/ds/list"
+	"github.com/sulavvr/ds/list"
 )
 
 type Queue struct {

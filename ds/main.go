@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/sulavv/ds/list"
-	"github.com/sulavv/ds/queue"
-	// "github.com/sulavv/ds/stack"
+	"github.com/sulavvr/ds/list"
+	"github.com/sulavvr/ds/queue"
+	// "github.com/sulavvr/ds/stack"
 )
 
 func main() {
