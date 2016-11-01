@@ -1,14 +1,15 @@
 package node
 
 import (
-    "fmt"
+	"fmt"
 )
 
 type Node struct {
-    Data interface{}
-    Next *Node
+	Data interface{}
+	Next *Node
+	Prev *Node
 }
 
 func (n *Node) GetValue() interface{} {
-    return fmt.Sprintf("%v", n.Data)
+	return fmt.Sprintf("%v", n.Data)
 }

@@ -1,4 +1,4 @@
-package list
+package slist
 
 import (
 	"errors"
@@ -7,17 +7,17 @@ import (
 	"github.com/sulavvr/ds/node"
 )
 
-type List struct {
+type SinglyLinkedList struct {
 	first *node.Node
 }
 
-func (l *List) Insert(insertData interface{}) {
+func (sl *SinglyLinkedList) Insert(insertData interface{}) {
 	ins := &node.Node{Data: insertData}
 
-	if l.first == nil {
-		l.first = ins
+	if sl.first == nil {
+		sl.first = ins
 	} else {
-		x := l.first
+		x := sl.first
 
 		for x.Next != nil {
 			x = x.Next
@@ -27,8 +27,8 @@ func (l *List) Insert(insertData interface{}) {
 	}
 }
 
-func (l *List) Display() {
-	x := l.first
+func (sl *SinglyLinkedList) Display() {
+	x := sl.first
 
 	for {
 		if x.Next != nil {
@@ -41,11 +41,11 @@ func (l *List) Display() {
 	}
 }
 
-func (l *List) RemoveLastItem() {
-	if l.first == nil {
+func (sl *SinglyLinkedList) RemoveLastItem() {
+	if sl.first == nil {
 		fmt.Println(errors.New("Nothing to remove"))
 	} else {
-		x := l.first
+		x := sl.first
 		prev := x
 		for x.Next != nil {
 			prev = x
@@ -59,11 +59,10 @@ func (l *List) RemoveLastItem() {
 	fmt.Println("Removed last item")
 }
 
-func (l *List) RemoveFirstItem() {
-	if l.first == nil {
+func (sl *SinglyLinkedList) RemoveFirstItem() {
+	if sl.first == nil {
 		fmt.Println(errors.New("Nothing to remove"))
 	} else {
-		l.first = l.first.Next
+		sl.first = sl.first.Next
 	}
-
 }

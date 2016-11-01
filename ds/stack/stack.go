@@ -1,11 +1,11 @@
 package stack
 
 import (
-	"github.com/sulavvr/ds/list"
+	"github.com/sulavvr/ds/slist"
 )
 
 type Stack struct {
-	List *list.List
+	List *slist.SinglyLinkedList
 }
 
 func (s *Stack) Push(data interface{}) {

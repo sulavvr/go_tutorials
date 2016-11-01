@@ -1,11 +1,11 @@
 package queue
 
 import (
-	"github.com/sulavvr/ds/list"
+	"github.com/sulavvr/ds/slist"
 )
 
 type Queue struct {
-	List *list.List
+	List *slist.SinglyLinkedList
 }
 
 func (q *Queue) Enqueue(data interface{}) {
