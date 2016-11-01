@@ -26,27 +26,22 @@ func (dl *DoublyLinkedList) Insert(data interface{}) {
 		dl.first = ins
 		dl.last = ins
 	} else {
-		x := dl.first
-		for x.Next != nil {
-			x = x.Next
+		head := dl.first
+		for head.Next != nil {
+			head = head.Next
 		}
 
-		ins.Prev = x
-		x.Next = ins
+		ins.Prev = head
+		head.Next = ins
 		dl.last = ins
 	}
 }
 
 func (dl *DoublyLinkedList) Display() {
-	x := dl.first
+	head := dl.first
 
-	for {
-		if x.Next != nil {
-			fmt.Printf("(%p)%+v\n", x, x)
-			x = x.Next
-		} else {
-			fmt.Printf("(%p)%+v\n", x, x)
-			break
-		}
+	for head != nil {
+		fmt.Printf("%+v\n", head)
+		head = head.Next
 	}
 }

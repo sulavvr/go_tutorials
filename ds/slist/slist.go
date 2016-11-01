@@ -17,27 +17,21 @@ func (sl *SinglyLinkedList) Insert(insertData interface{}) {
 	if sl.first == nil {
 		sl.first = ins
 	} else {
-		x := sl.first
+		head := sl.first
 
-		for x.Next != nil {
-			x = x.Next
+		for head.Next != nil {
+			head = head.Next
 		}
 
-		x.Next = ins
+		head.Next = ins
 	}
 }
 
 func (sl *SinglyLinkedList) Display() {
-	x := sl.first
-
-	for {
-		if x.Next != nil {
-			fmt.Printf("%+v\n", x)
-			x = x.Next
-		} else {
-			fmt.Printf("%+v\n", x)
-			break
-		}
+	head := sl.first;
+	for head != nil {
+		fmt.Printf("%+v\n", head)
+		head = head.Next
 	}
 }
 
@@ -45,11 +39,11 @@ func (sl *SinglyLinkedList) RemoveLastItem() {
 	if sl.first == nil {
 		fmt.Println(errors.New("Nothing to remove"))
 	} else {
-		x := sl.first
-		prev := x
-		for x.Next != nil {
-			prev = x
-			x = x.Next
+		head := sl.first
+		prev := head
+		for head.Next != nil {
+			prev = head
+			head = head.Next
 		}
 
 		prev.Next = nil
