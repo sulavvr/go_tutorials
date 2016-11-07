@@ -34,8 +34,8 @@ func main() {
 	// {[()]}
 
 	// [ {, [, (,  ]
-	for i, _ := range strings {
-		for _, x := range strings[i] {
+	for _, v := range strings {
+		for _, x := range v {
 			if _, ok := brackets[string(x)]; ok {
 				push(string(x))
 			} else {
