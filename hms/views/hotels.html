@@ -1,0 +1,48 @@
+{{ template "header.html" . }}
+    <br/>
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- <h2>List of our Hotels</h2> -->
+            <hr/>
+            {{ range .hotels }}
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img class="img-thumbnail card_image" src="{{ .GetInfo.logo.Value }}" />
+                    </div>
+                    <div class="col-sm-9">
+                        <h3>{{ .GetInfo.name }}</h3>
+                        <p>
+                            {{ if .GetInfo.description.Value }}
+                                {{ .GetInfo.description.Value }}
+                            {{ else }}
+                                No description provided.
+                            {{ end }}
+                        </p>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <dt class="col-sm-3">Floors</dt>
+                                    <dd class="col-sm-7">{{ .GetInfo.floors }}</dd>
+                                    <dt class="col-sm-3">Rooms</dt>
+                                    <dd class="col-sm-7">{{ .GetInfo.rooms }}</dd>
+                                    <dt class="col-sm-3">Address</dt>
+                                    <dd class="col-sm-7">{{ .GetInfo.address }}</dd>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <h1 class="text-right">
+                                    ${{ .GetInfo.price }}
+                                </h1>
+                                <p class="text-right text-muted">*{{ .GetInfo.type }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/hotels/{{ .GetInfo.id }}" class="btn btn-primary btn-lg float-right">Book a room</a>
+                <div class="clearfix"></div>
+            <hr />
+            {{ end }}
+        </div>
+    </div>
+{{ template "footer.html" . }}
+
