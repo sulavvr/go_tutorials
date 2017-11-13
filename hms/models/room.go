@@ -55,7 +55,5 @@ func (room Room) Rooms(hotel int, db *sql.DB) []Room {
 		rooms = append(rooms, room)
 	}
 
-	log.Print(rooms)
-
 	return rooms
 }
