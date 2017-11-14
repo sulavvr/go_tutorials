@@ -72,7 +72,7 @@ func (hotel Hotel) All(db *sql.DB) []Hotel {
 }
 
 func (hotel Hotel) Find(id int, db *sql.DB) Hotel {
-	query := "SELECT id, name, address, description, floors, rooms, logo FROM hotels WHERE id = ?"
+	query := `SELECT id, name, address, description, floors, rooms, logo FROM hotels WHERE id = ?`
 	row := db.QueryRow(query, id)
 
 	row.Scan(&hotel.id, &hotel.name, &hotel.address, &hotel.description, &hotel.floors, &hotel.rooms, &hotel.logo)

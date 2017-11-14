@@ -1,0 +1,31 @@
+{{ template "header.html" . }}
+    <br/>
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Users</h2>
+            <!-- <hr/> -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range .users }}
+                        <tr>
+                            <th><a href="/user/{{ .GetInfo.id }}">{{ .GetInfo.name }}</a></th>
+                            <td>{{ .GetInfo.email }}</td>
+                            <td>{{ if .GetInfo.phone.Valid }} {{ .GetInfo.phone.String }} {{ else }} N/A {{ end }}</td>
+                            <td>{{ if .GetInfo.street.Valid }} {{ .GetInfo.street.String }} {{ else }} N/A {{ end }} <br/>
+                            {{ .GetInfo.location }}</td>
+                        </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{{ template "footer.html" . }}
+

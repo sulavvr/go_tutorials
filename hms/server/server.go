@@ -7,19 +7,25 @@ import (
 )
 
 var (
-	hotelController controllers.Controller
+	HotelController controllers.Controller
+	UserController  controllers.Controller
 )
 
 func init() {
-	hotelController = &controllers.Hotel{}
+	HotelController = &controllers.Hotel{}
+	UserController = &controllers.User{}
 }
 
 /**
  * Start handles the routes and also starts the server to serve the application.
  */
 func Start() {
-	http.HandleFunc("/", hotelController.Index)
-	http.HandleFunc("/hotels/", hotelController.Show)
+	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
+	http.HandleFunc("/", HotelController.Index)
+	http.HandleFunc("/hotels/", HotelController.Index)
+	http.HandleFunc("/hotel/", HotelController.Show)
+	http.HandleFunc("/users/", UserController.Index)
+	http.HandleFunc("/user/", UserController.Show)
 
 	http.ListenAndServe(":3000", nil)
 }

@@ -16,6 +16,7 @@ type Controller interface {
 var (
 	Templates *template.Template
 	DB        *sql.DB
+	data      map[string]interface{}
 )
 
 func init() {
@@ -23,4 +24,5 @@ func init() {
 	database.Setup()
 
 	DB = database.Get()
+	data = make(map[string]interface{})
 }

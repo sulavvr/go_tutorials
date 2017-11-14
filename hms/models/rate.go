@@ -28,7 +28,7 @@ func (rate Rate) GetInfo() map[string]interface{} {
 }
 
 func (rate Rate) Rates(room int, db *sql.DB) []Rate {
-	query := "SELECT id, room_id, type, price FROM rates  WHERE room_id = ?"
+	query := `SELECT id, room_id, type, price FROM rates WHERE room_id = ?`
 	rows, err := db.Query(query, room)
 
 	if err != nil {
@@ -45,4 +45,12 @@ func (rate Rate) Rates(room int, db *sql.DB) []Rate {
 	}
 
 	return rates
+}
+
+func (rate Rate) Find(id int, db *sql.DB) Rate {
+	query := `SELECT id, room_id, type, price FROM rates WHERE id = ?`
+	row := db.QueryRow(query, id)
+	row.Scan(&rate.id, &rate.room, &rate.rateType, &rate.price)
+
+	return rate
 }

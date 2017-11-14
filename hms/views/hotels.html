@@ -12,7 +12,7 @@
                     <div class="col-sm-9">
                         <h3>{{ .GetInfo.name }}</h3>
                         <p>
-                            {{ if .GetInfo.description.Value }}
+                            {{ if .GetInfo.description.Valid }}
                                 {{ .GetInfo.description.Value }}
                             {{ else }}
                                 No description provided.
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="/hotels/{{ .GetInfo.id }}" class="btn btn-primary btn-lg float-right">Book a room</a>
+                <a href="/hotel/{{ .GetInfo.id }}" class="btn btn-primary btn-lg float-right">Book a room</a>
                 <div class="clearfix"></div>
             <hr />
             {{ end }}

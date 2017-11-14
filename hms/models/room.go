@@ -36,7 +36,7 @@ func (room Room) GetInfo() map[string]interface{} {
 }
 
 func (room Room) Rooms(hotel int, db *sql.DB) []Room {
-	query := "SELECT id, hotel_id, floor, num, type, status, smoking FROM rooms WHERE hotel_id = ?"
+	query := `SELECT id, hotel_id, floor, num, type, status, smoking FROM rooms WHERE hotel_id = ?`
 	rows, err := db.Query(query, hotel)
 
 	if err != nil {
