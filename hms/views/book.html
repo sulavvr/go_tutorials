@@ -1,0 +1,86 @@
+{{ template "header.html" . }}
+<br/>
+<div class="row">
+    <div class="col-sm-12">
+        <h4>Fill out your information below for reservation</h4>
+        <hr/>
+    </div>
+    <div class="col-sm-7">
+        <form>
+            <input type="hidden" name="rate_id" value="{{ .rate.GetInfo.id }}" />
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Full Name</label>
+                <div class="col-sm-10">
+                    <input type="text" required class="form-control" name="name" id="name" placeholder="Enter full name">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" required class="form-control" name="email" id="email" placeholder="Enter email address">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="phone" id="phone" value="Enter phone number">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="street" class="col-sm-2 col-form-label">Street</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="street" name="street" placeholder="Enter street">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="city" class="col-sm-2 col-form-label">City</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="city" name="city" placeholder="Enter city">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="state" class="col-sm-2 col-form-label">State</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="state" name="state" placeholder="Enter state">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="zip" class="col-sm-2 col-form-label">Zip</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="zip" name="zip" placeholder="Enter zip">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Reserve</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-5">
+        <div class="card mb-3">
+            <div class="card-header">
+                <img class="img-thumbnail" src="{{ .rate.GetInfo.room.GetInfo.hotel.GetInfo.logo.Value }}" />
+            </div>
+            <div class="card-body">
+                <h2>${{ .rate.GetInfo.price }} <small>per night</small></h2>
+                <hr/>
+                <div class="row">
+                    <dt class="col-sm-4">Rate Type</dt>
+                    <dd class="col-sm-8 font-weight-bold">{{ .rate.GetInfo.type }}</dd>
+                    <dt class="col-sm-4">Location</dt>
+                    <dd class="col-sm-8">{{ .rate.GetInfo.room.GetInfo.hotel.GetInfo.address }}</dd>
+                    <dt class="col-sm-4">Type</dt>
+                    <dd class="col-sm-8">{{ .rate.GetInfo.room.GetInfo.type }}</dd>
+                    <dt class="col-sm-4">Smoking</dt>
+                    <dd class="col-sm-8">{{ if .rate.GetInfo.room.GetInfo.smoking }} Yes {{ else }} No {{ end }}</dd>
+                    <dt class="col-sm-4">Room #</dt>
+                    <dd class="col-sm-8">{{ .rate.GetInfo.room.GetInfo.num }}</dd>
+                    <dt class="col-sm-4">Floor #</dt>
+                    <dd class="col-sm-8">{{ .rate.GetInfo.room.GetInfo.floor }}</dd>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ template "footer.html" . }}

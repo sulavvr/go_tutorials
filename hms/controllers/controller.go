@@ -3,14 +3,14 @@ package controllers
 import (
 	"database/sql"
 	"html/template"
-	"net/http"
+	// "net/http"
 
 	"github.com/sulavvr/hms/database"
 )
 
 type Controller interface {
-	Index(writer http.ResponseWriter, req *http.Request)
-	Show(writer http.ResponseWriter, req *http.Request)
+	// Index(writer http.ResponseWriter, req *http.Request)
+	// Show(writer http.ResponseWriter, req *http.Request)
 }
 
 var (

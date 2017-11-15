@@ -39,7 +39,6 @@ func (user User) Show(writer http.ResponseWriter, req *http.Request) {
 	reservation := &models.Reservation{}
 	data["user"] = _user
 	data["reservations"] = reservation.Reservations(id, DB)
-	// log.Print(data["reservations"])
 
 	err = Templates.ExecuteTemplate(writer, "user.html", data)
 	if err != nil {

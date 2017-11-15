@@ -41,3 +41,18 @@ func (hotel Hotel) Show(writer http.ResponseWriter, req *http.Request) {
 		http.Error(writer, err.Error(), http.StatusInternalServerError)
 	}
 }
+
+func (hotel Hotel) Book(writer http.ResponseWriter, req *http.Request) {
+	url := strings.Split(req.URL.Path, "/")
+	id, _ := strconv.Atoi(url[len(url)-1])
+
+	rate := &models.Rate{}
+	_rate := rate.Find(id, DB)
+	data["rate"] = _rate
+
+	err := Templates.ExecuteTemplate(writer, "book.html", data)
+
+	if err != nil {
+		http.Error(writer, err.Error(), http.StatusInternalServerError)
+	}
+}

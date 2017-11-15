@@ -11,7 +11,7 @@ import (
  */
 type Rate struct {
 	id       int
-	room     int
+	room     Room
 	rateType string
 	price    int
 }
@@ -39,7 +39,11 @@ func (rate Rate) Rates(room int, db *sql.DB) []Rate {
 	var rates []Rate
 
 	for rows.Next() {
-		rows.Scan(&rate.id, &rate.room, &rate.rateType, &rate.price)
+		var r int
+		rows.Scan(&rate.id, &r, &rate.rateType, &rate.price)
+
+		_room := &Room{}
+		rate.room = _room.Find(r, db)
 
 		rates = append(rates, rate)
 	}
@@ -50,7 +54,11 @@ func (rate Rate) Rates(room int, db *sql.DB) []Rate {
 func (rate Rate) Find(id int, db *sql.DB) Rate {
 	query := `SELECT id, room_id, type, price FROM rates WHERE id = ?`
 	row := db.QueryRow(query, id)
-	row.Scan(&rate.id, &rate.room, &rate.rateType, &rate.price)
+	var r int
+	row.Scan(&rate.id, &r, &rate.rateType, &rate.price)
 
+	room := Room{}
+	rate.room = room.Find(r, db)
+	// log.Print(rate.room)
 	return rate
 }

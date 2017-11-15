@@ -11,11 +11,11 @@ import (
  */
 type Room struct {
 	id       int
-	hotel    int
+	hotel    Hotel
 	floor    int
 	num      int
 	roomType string
-	status   string
+	status   bool
 	smoking  bool
 	rates    []Rate
 }
@@ -27,7 +27,7 @@ func (room Room) GetInfo() map[string]interface{} {
 		"floor":   room.floor,
 		"num":     room.num,
 		"type":    strings.Title(room.roomType),
-		"status":  strings.Title(room.status),
+		"status":  room.status,
 		"smoking": room.smoking,
 		"rates":   room.rates,
 	}
@@ -47,13 +47,30 @@ func (room Room) Rooms(hotel int, db *sql.DB) []Room {
 	var rooms []Room
 
 	for rows.Next() {
-		rows.Scan(&room.id, &room.hotel, &room.floor, &room.num, &room.roomType, &room.status, &room.smoking)
+		var h int
+		rows.Scan(&room.id, &h, &room.floor, &room.num, &room.roomType, &room.status, &room.smoking)
 
-		r := &Rate{}
-		room.rates = r.Rates(room.id, db)
-
+		rate := &Rate{}
+		hotel := &Hotel{}
+		room.rates = rate.Rates(room.id, db)
+		room.hotel = hotel.Find(h, db)
 		rooms = append(rooms, room)
 	}
 
+	log.Print(rooms)
+
 	return rooms
+}
+
+func (room Room) Find(id int, db *sql.DB) Room {
+	query := `SELECT id, hotel_id, floor, num, type, status, smoking FROM rooms WHERE id = ?`
+
+	var h int
+	row := db.QueryRow(query, id)
+	row.Scan(&room.id, &h, &room.floor, &room.num, &room.roomType, &room.status, &room.smoking)
+
+	hotel := &Hotel{}
+	room.hotel = hotel.Find(h, db)
+
+	return room
 }

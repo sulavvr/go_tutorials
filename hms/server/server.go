@@ -7,14 +7,14 @@ import (
 )
 
 var (
-	HotelController controllers.Controller
-	UserController  controllers.Controller
+	HotelController controllers.Hotel
+	UserController  controllers.User
 )
 
-func init() {
-	HotelController = &controllers.Hotel{}
-	UserController = &controllers.User{}
-}
+// func init() {
+// 	HotelController = &controllers.Hotel{}
+// 	UserController = &controllers.User{}
+// }
 
 /**
  * Start handles the routes and also starts the server to serve the application.
@@ -24,6 +24,7 @@ func Start() {
 	http.HandleFunc("/", HotelController.Index)
 	http.HandleFunc("/hotels/", HotelController.Index)
 	http.HandleFunc("/hotel/", HotelController.Show)
+	http.HandleFunc("/hotel/book/", HotelController.Book)
 	http.HandleFunc("/users/", UserController.Index)
 	http.HandleFunc("/user/", UserController.Show)
 
