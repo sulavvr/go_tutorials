@@ -6,7 +6,7 @@
         <hr/>
     </div>
     <div class="col-sm-7">
-        <form>
+        <form method="POST" action="/hotel/book/confirm">
             <input type="hidden" name="rate_id" value="{{ .rate.GetInfo.id }}" />
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Full Name</label>
@@ -23,7 +23,7 @@
             <div class="form-group row">
                 <label for="phone" class="col-sm-2 col-form-label">Phone</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="phone" id="phone" value="Enter phone number">
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter phone number">
                 </div>
             </div>
             <div class="form-group row">
@@ -50,9 +50,28 @@
                     <input type="text" class="form-control" id="zip" name="zip" placeholder="Enter zip">
                 </div>
             </div>
+            <hr />
+            <div class="form-group row">
+                <label for="check_in" class="col-sm-2 col-form-label">Check In</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="check_in" name="check_in" placeholder="Enter check in date">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="check_out" class="col-sm-2 col-form-label">Check Out</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="check_out" name="check_out" placeholder="Enter check out date">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="guests" class="col-sm-2 col-form-label">Guests</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="guests" name="guests" placeholder="Enter no. of guests">
+                </div>
+            </div>
             <div class="form-group row">
                 <div class="col-sm-10 offset-sm-2">
-                    <button type="submit" class="btn btn-primary">Reserve</button>
+                    <button type="submit" class="btn btn-primary">Make reservation</button>
                 </div>
             </div>
         </form>

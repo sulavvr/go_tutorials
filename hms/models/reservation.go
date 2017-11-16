@@ -1,10 +1,11 @@
 package models
 
 import (
+	"crypto/md5"
 	"database/sql"
-	// "fmt"
+	"fmt"
 	"log"
-	// "time"
+	"time"
 )
 
 /**
@@ -20,6 +21,18 @@ type Reservation struct {
 	guests       int
 	hasPayment   bool
 	payment      Payment
+}
+
+func (reservation Reservation) SetInfo(details map[string]interface{}) Reservation {
+	data := []byte(time.Now().String())
+	reservation.confirmation = fmt.Sprintf("%x", md5.Sum(data))
+	reservation.user = details["user_id"].(int)
+	reservation.rate = details["rate"].(Rate)
+	reservation.checkIn = details["check_in"].(string)
+	reservation.checkOut = details["check_out"].(string)
+	reservation.guests = details["guests"].(int)
+
+	return reservation
 }
 
 func (reservation Reservation) GetInfo() map[string]interface{} {
@@ -65,4 +78,22 @@ func (reservation Reservation) Reservations(user int, db *sql.DB) []Reservation 
 	}
 
 	return reservations
+}
+
+func (reservation Reservation) Insert(db *sql.DB) (int, error) {
+	query := `INSERT INTO reservations (confirmation, user_id, rate_id, check_in, check_out, guests)
+			  VALUES (?, ?, ?, ?, ?, ?)`
+	result, err := db.Exec(query, reservation.confirmation, reservation.user, reservation.rate.GetInfo()["id"], reservation.checkIn, reservation.checkOut, reservation.guests)
+
+	if err != nil {
+		return 0, err
+	}
+
+	last_insert, err := result.LastInsertId()
+
+	if err != nil {
+		return 0, err
+	}
+
+	return int(last_insert), nil
 }

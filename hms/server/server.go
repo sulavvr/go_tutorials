@@ -25,6 +25,7 @@ func Start() {
 	http.HandleFunc("/hotels/", HotelController.Index)
 	http.HandleFunc("/hotel/", HotelController.Show)
 	http.HandleFunc("/hotel/book/", HotelController.Book)
+	http.HandleFunc("/hotel/book/confirm", HotelController.Confirm)
 	http.HandleFunc("/users/", UserController.Index)
 	http.HandleFunc("/user/", UserController.Show)
 

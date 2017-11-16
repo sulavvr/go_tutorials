@@ -59,6 +59,6 @@ func (rate Rate) Find(id int, db *sql.DB) Rate {
 
 	room := Room{}
 	rate.room = room.Find(r, db)
-	// log.Print(rate.room)
+
 	return rate
 }
