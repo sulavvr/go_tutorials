@@ -37,22 +37,35 @@ func (hotel Hotel) GetInfo() map[string]interface{} {
 }
 
 func (hotel Hotel) All(db *sql.DB) []Hotel {
-	query := `SELECT t1.* FROM
-            (
-                SELECT hotels.id, hotels.name, hotels.address, hotels.description, hotels.floors, hotels.rooms, hotels.logo, rates.price, rates.type
+	query := `
+select t1.id, t1.name, t1.address, t1.description, t1.floors, t1.rooms, t1.logo, t1.price, MAX(t1.type) as type from
+        (        SELECT hotels.id, hotels.name, hotels.address, hotels.description, hotels.floors, hotels.rooms, hotels.logo, rates.price, rates.type
                 FROM hotels
                 INNER JOIN rooms ON rooms.hotel_id = hotels.id
                 INNER JOIN rates ON rates.room_id = rooms.id
-                GROUP BY hotels.id, rates.price, rates.type
-            ) t1
-            LEFT OUTER JOIN
-            (
-                SELECT hotels.id, hotels.name, hotels.address, hotels.description, hotels.floors, hotels.rooms, hotels.logo, rates.price, rates.type
-                FROM hotels
-                INNER JOIN rooms ON rooms.hotel_id = hotels.id
-                INNER JOIN rates ON rates.room_id = rooms.id
-                GROUP BY hotels.id, rates.price, rates.type
-            ) t2 ON t1.id = t2.id AND (t1.price > t2.price OR (t1.price = t2.price and t1.id < t2.id)) WHERE t2.id IS NULL`
+                WHERE (hotels.id, price) IN (
+                    SELECT hotels.id, MIN(rates.price) as price
+                    FROM hotels
+                    INNER JOIN rooms ON rooms.hotel_id = hotels.id
+                    INNER JOIN rates ON rates.room_id = rooms.id
+                    GROUP BY hotels.id
+                )) t1 GROUP BY t1.id, t1.price`
+	// query := `SELECT t1.* FROM
+	//            (
+	//                SELECT hotels.id, hotels.name, hotels.address, hotels.description, hotels.floors, hotels.rooms, hotels.logo, rates.price, rates.type
+	//                FROM hotels
+	//                INNER JOIN rooms ON rooms.hotel_id = hotels.id
+	//                INNER JOIN rates ON rates.room_id = rooms.id
+	//                GROUP BY hotels.id, rates.price, rates.type
+	//            ) t1
+	//            LEFT OUTER JOIN
+	//            (
+	//                SELECT hotels.id, hotels.name, hotels.address, hotels.description, hotels.floors, hotels.rooms, hotels.logo, rates.price, rates.type
+	//                FROM hotels
+	//                INNER JOIN rooms ON rooms.hotel_id = hotels.id
+	//                INNER JOIN rates ON rates.room_id = rooms.id
+	//                GROUP BY hotels.id, rates.price, rates.type
+	//            ) t2 ON t1.id = t2.id AND (t1.price > t2.price OR (t1.price = t2.price and t1.id < t2.id)) WHERE t2.id IS NULL`
 
 	rows, err := db.Query(query)
 
