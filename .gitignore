@@ -46,3 +46,4 @@ _testmain.go
 *.prof
 
 *.sh
+neogo/
